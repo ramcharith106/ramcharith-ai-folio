@@ -50,10 +50,20 @@ const Hero = () => {
             </div>
 
             <div className="flex items-center gap-6 pt-6">
-              <Button variant="ghost" size="icon" className="hover:scale-110">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="hover:scale-110"
+                onClick={() => window.open('https://github.com/ramcharith106', '_blank')}
+              >
                 <Github size={24} />
               </Button>
-              <Button variant="ghost" size="icon" className="hover:scale-110">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="hover:scale-110"
+                onClick={() => window.open('https://www.linkedin.com/in/ram-charith-reddy-alluru-741942364/', '_blank')}
+              >
                 <Linkedin size={24} />
               </Button>
               <Button variant="ghost" size="sm" className="gap-2">

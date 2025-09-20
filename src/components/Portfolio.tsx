@@ -80,7 +80,19 @@ const Portfolio = () => {
                     </div>
 
                     <div className="flex gap-3 pt-2">
-                      <Button variant="outline" size="sm" className="flex-1">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={() => {
+                          const demoLinks = {
+                            'Jeevan Rakshak': 'https://jeevan-rakshak-zeta.vercel.app/',
+                            'FreelanceHub': 'https://frelancehub.vercel.app/',
+                            'Univera': 'https://univera-student-app.vercel.app/'
+                          };
+                          window.open(demoLinks[project.title as keyof typeof demoLinks], '_blank');
+                        }}
+                      >
                         <ExternalLink size={14} />
                         Live Demo
                       </Button>
@@ -98,7 +110,11 @@ const Portfolio = () => {
 
         <div className="text-center mt-12">
           <p className="text-muted-foreground mb-6">Want to see more projects?</p>
-          <Button variant="matrix" size="lg">
+          <Button 
+            variant="matrix" 
+            size="lg"
+            onClick={() => window.open('https://github.com/ramcharith106', '_blank')}
+          >
             <Github size={18} />
             View All on GitHub
           </Button>

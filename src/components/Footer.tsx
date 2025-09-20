@@ -23,10 +23,20 @@ const Footer = () => {
               Currently seeking internship opportunities.
             </p>
             <div className="flex gap-3">
-              <Button variant="ghost" size="icon" className="hover:scale-110">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="hover:scale-110"
+                onClick={() => window.open('https://github.com/ramcharith106', '_blank')}
+              >
                 <Github size={18} />
               </Button>
-              <Button variant="ghost" size="icon" className="hover:scale-110">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="hover:scale-110"
+                onClick={() => window.open('https://www.linkedin.com/in/ram-charith-reddy-alluru-741942364/', '_blank')}
+              >
                 <Linkedin size={18} />
               </Button>
             </div>
@@ -73,8 +83,8 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-semibold text-foreground">Get In Touch</h3>
             <div className="space-y-2 text-sm text-muted-foreground">
-              <p>ramcharith@example.com</p>
-              <p>+91 XXXXX XXXXX</p>
+              <p>allurucharith@gmail.com</p>
+              <p>+91 90329 10399</p>
               <p>Vijayawada, India</p>
             </div>
           </div>

@@ -53,7 +53,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="text-foreground font-medium">Email</p>
-                      <p className="text-muted-foreground">ramcharith@example.com</p>
+                      <p className="text-muted-foreground">allurucharith@gmail.com</p>
                     </div>
                   </div>
                   
@@ -63,7 +63,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="text-foreground font-medium">Phone</p>
-                      <p className="text-muted-foreground">+91 XXXXX XXXXX</p>
+                      <p className="text-muted-foreground">+91 90329 10399</p>
                     </div>
                   </div>
 
@@ -81,10 +81,20 @@ const Contact = () => {
                 <div className="mt-8 pt-6 border-t border-border">
                   <h4 className="text-foreground font-medium mb-4">Follow Me</h4>
                   <div className="flex gap-4">
-                    <Button variant="ghost" size="icon" className="hover:scale-110">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="hover:scale-110"
+                      onClick={() => window.open('https://github.com/ramcharith106', '_blank')}
+                    >
                       <Github size={20} />
                     </Button>
-                    <Button variant="ghost" size="icon" className="hover:scale-110">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="hover:scale-110"
+                      onClick={() => window.open('https://www.linkedin.com/in/ram-charith-reddy-alluru-741942364/', '_blank')}
+                    >
                       <Linkedin size={20} />
                     </Button>
                   </div>
