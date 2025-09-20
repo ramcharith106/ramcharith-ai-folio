@@ -1,0 +1,189 @@
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, Phone, Github, Linkedin, Send, MapPin } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const { toast } = useToast();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for reaching out. I'll get back to you soon!",
+    });
+    setFormData({ name: '', email: '', message: '' });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  return (
+    <section id="contact" className="py-20 bg-background">
+      <div className="container mx-auto px-4 lg:px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-display font-bold text-foreground mb-4">Get In Touch</h2>
+          <p className="text-title text-muted-foreground max-w-2xl mx-auto">
+            I'm currently looking for an internship. My inbox is always open. Whether you have a question or just want to say hi, I'll get back to you!
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Contact Information */}
+          <div className="space-y-8">
+            <Card className="bg-gradient-primary/10 border-primary/20 shadow-glow">
+              <CardContent className="p-8">
+                <h3 className="text-xl font-semibold text-foreground mb-6">Let's Connect</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-primary/10 rounded-lg">
+                      <Mail className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <p className="text-foreground font-medium">Email</p>
+                      <p className="text-muted-foreground">ramcharith@example.com</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-primary/10 rounded-lg">
+                      <Phone className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <p className="text-foreground font-medium">Phone</p>
+                      <p className="text-muted-foreground">+91 XXXXX XXXXX</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-primary/10 rounded-lg">
+                      <MapPin className="text-primary" size={20} />
+                    </div>
+                    <div>
+                      <p className="text-foreground font-medium">Location</p>
+                      <p className="text-muted-foreground">Vijayawada, India</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-border">
+                  <h4 className="text-foreground font-medium mb-4">Follow Me</h4>
+                  <div className="flex gap-4">
+                    <Button variant="ghost" size="icon" className="hover:scale-110">
+                      <Github size={20} />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="hover:scale-110">
+                      <Linkedin size={20} />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 backdrop-blur-sm border-border">
+              <CardContent className="p-8">
+                <h3 className="text-xl font-semibold text-foreground mb-4">Available for Internship</h3>
+                <p className="text-muted-foreground mb-4 leading-relaxed">
+                  I'm actively seeking internship opportunities where I can contribute to innovative projects 
+                  and grow as a developer. I'm passionate about:
+                </p>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-primary rounded-full"></div>
+                    Full-stack web development
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-primary rounded-full"></div>
+                    AI/ML integration
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-primary rounded-full"></div>
+                    SaaS product development
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-primary rounded-full"></div>
+                    Learning new technologies
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Contact Form */}
+          <Card className="bg-card/50 backdrop-blur-sm border-border shadow-card">
+            <CardContent className="p-8">
+              <h3 className="text-xl font-semibold text-foreground mb-6">Send a Message</h3>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                    Name
+                  </label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Your full name"
+                    required
+                    className="bg-secondary/20 border-border focus:border-primary"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="your.email@example.com"
+                    required
+                    className="bg-secondary/20 border-border focus:border-primary"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Tell me about your project or internship opportunity..."
+                    rows={5}
+                    required
+                    className="bg-secondary/20 border-border focus:border-primary resize-none"
+                  />
+                </div>
+
+                <Button type="submit" variant="hero" size="lg" className="w-full">
+                  <Send size={18} />
+                  Send Message
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
