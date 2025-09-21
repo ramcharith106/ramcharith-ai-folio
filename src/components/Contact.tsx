@@ -2,11 +2,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, Github, Linkedin, Send, MapPin } from "lucide-react";
+import { Mail, Phone, Github, Linkedin, Send, MapPin, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,20 +16,61 @@ const Contact = () => {
   });
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon!",
-    });
-    setFormData({ name: '', email: '', message: '' });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+  const sendEmail = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      console.error("EmailJS environment variables are not set.");
+      toast({
+        title: "Configuration Error",
+        description: "The email service is not configured correctly. Please contact the site administrator.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    const templateParams = {
+      name: formData.name,
+      time: new Date().toLocaleString(),
+      message: formData.message,
+      // Note: formData.email is collected but not sent as it's not in your template variable list.
+    };
+
+    emailjs
+      .send(serviceId, templateId, templateParams, {
+        publicKey: publicKey,
+      })
+      .then(
+        () => {
+          console.log('SUCCESS!');
+          toast({
+            title: "Message Sent!",
+            description: "Thank you for reaching out. I'll get back to you soon!",
+          });
+          setFormData({ name: '', email: '', message: '' });
+          setIsSubmitting(false);
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+          toast({
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request. Please try again later.",
+            variant: "destructive",
+          });
+          setIsSubmitting(false);
+        },
+      );
   };
 
   return (
@@ -135,7 +178,7 @@ const Contact = () => {
           <Card className="bg-card/50 backdrop-blur-sm border-border shadow-card">
             <CardContent className="p-8">
               <h3 className="text-xl font-semibold text-foreground mb-6">Send a Message</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={sendEmail} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                     Name
@@ -183,9 +226,18 @@ const Contact = () => {
                   />
                 </div>
 
-                <Button type="submit" variant="hero" size="lg" className="w-full">
-                  <Send size={18} />
-                  Send Message
+                <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      Send Message
+                    </>
+                  )}
                 </Button>
               </form>
             </CardContent>
