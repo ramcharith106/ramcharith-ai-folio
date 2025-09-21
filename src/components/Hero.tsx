@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Eye } from "lucide-react";
 import profileImage from "@/assets/ramcharith-profile.jpg";
 
 const Hero = () => {
@@ -66,10 +66,16 @@ const Hero = () => {
               >
                 <Linkedin size={24} />
               </Button>
-              <Button variant="ghost" size="sm" className="gap-2">
-                <Download size={18} />
-                Resume
-              </Button>
+              <a 
+                href="/Ramcharith-Reddy-Resume.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <Eye size={18} />
+                  View Resume
+                </Button>
+              </a>
             </div>
           </div>
 
